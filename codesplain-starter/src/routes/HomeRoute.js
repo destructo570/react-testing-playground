@@ -9,7 +9,7 @@ function HomeRoute() {
   const { data: goRepos } = useRepositories('stars:>10000 language:go');
   const { data: pythonRepos } = useRepositories('stars:>10000 language:python');
   const { data: javaRepos } = useRepositories('stars:>10000 language:java');
-
+  
   return (
     <div>
       <Hero />
