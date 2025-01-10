@@ -1,4 +1,4 @@
-import { render, screen, act} from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import RepositoriesListItem from "./RepositoriesListItem";
 import { MemoryRouter } from "react-router";
 
@@ -19,20 +19,33 @@ const renderComponent = () => {
     name: "react",
     html_url: "https://github.com/facebook/react",
   };
+
   render(
     <MemoryRouter>
       <RepositoriesListItem repository={repository} />
     </MemoryRouter>
   );
+
+  return { repository };
 };
 
-//One way to solve Act warnings (Preffered)
-// test("component shows a link for the github homepage for this repository", async () => {
-//   renderComponent();
+test("shows a file icon with appropriate file icon", async () => {
+  renderComponent();
+  const icon = await screen.findByRole("img", { name: "JavaScript" });
+  expect(icon).toHaveClass("js-icon");
+});
 
-//   //For removing act warning due to FileIcon component
-//   await screen.findByRole("img", {name: "JavaScript"});
-// });
+//One way to solve Act warnings (Preffered)
+test("component shows a link for the github homepage for this repository", async () => {
+  const { repository } = renderComponent();
+
+  await screen.findByRole("img", { name: "JavaScript" });
+
+  const link = screen.getByRole("link", {
+    name: "github-repository",
+  });
+  expect(link).toHaveAttribute("href", repository.html_url);
+});
 
 //===========================================================================================//
 
