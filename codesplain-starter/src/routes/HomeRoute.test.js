@@ -45,4 +45,3 @@ test("renders two links for each language", async () => {
   }
 });
 
-// const pause = () => new Promise((resolve) => setTimeout(resolve(), 100));
